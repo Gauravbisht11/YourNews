@@ -1,0 +1,26 @@
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependency folders
+node_modules/
+venv/
+
+# Build artifacts
+dist/
+build/
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Environment files
+.env
+
+# Temporary files
+*.tmp
+*.swp
