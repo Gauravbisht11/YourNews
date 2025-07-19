@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= article.title %></title>
+  <link rel="stylesheet" href="/styles.css"> <!-- optional CSS -->
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: sans-serif;
+      line-height: 1.6;
+    }
+    .sponsor {
+      background: #f9f9f9;
+      padding: 10px;
+      margin: 20px 0;
+      text-align: center;
+      color: #777;
+      border: 1px dashed #ccc;
+    }
+    img.article-image {
+      width: 50rem;
+      height: 27rem;
+      display: block;
+      margin: 20px 0;
+    }
+    .meta {
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 🟡 Sponsor at the Top -->
+    <div class="sponsor">
+<img src="/NewsApp/public/uploads/06f39235-754c-41ce-b593-26b60485a7cb.jpg" alt="Sponsor Ad">
+</div>
+    
+
+    <!-- 📝 Title and Metadata -->
+    <h1><%= article.title %></h1>
+    <div class="meta">
+      <% 
+  const postDate = new Date(article.timestamp || article.date);
+  const formattedDate = isNaN(postDate) ? 'Unknown Date' : postDate.toLocaleDateString('en-IN', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  const wordCount = article.content ? article.content.trim().split(/\s+/).length : 0;
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+%>
+Posted on <%= formattedDate %> | Reading time: 🕒 ~<%= readingTime %> min
+
+     
+    </div>
+
+    <!-- 📷 Main Image -->
+    <% if (article.image) { %>
+      <img src="<%= article.image %>" alt="News image" class="article-image">
+    <% } %>
+
+    <!-- 📃 Description with Sponsors inserted -->
+   <div class="content">
+  <% 
+    const lines = article.content.split(/\r?\n/).filter(line => line.trim() !== '');
+    lines.forEach((line, idx) => { 
+  %>
+    <p style="white-space: pre-wrap;"><%= line %></p>
+
+    <% if (idx === 1) { %> <!-- After second line -->
+      <div class="sponsor mt-4 mb-4 text-center p-2 bg-light border rounded">
+        🟦 Sponsored: Discover unbeatable deals at AdBoost.com!
+      </div>
+    <% } %>
+
+    <% if (idx === 9) { %> <!-- After fifth line -->
+      <div class="sponsor mt-4 mb-4 text-center p-2 bg-light border rounded">
+        🟦 Sponsored: Save 40% on your next gadget at TechNova!
+      </div>
+    <% } %>
+
+  <% }); %>
+</div>
+
+    <!-- 🏁 Final Sponsored Section -->
+    <div class="sponsor">🔹 Sponsored Content: Explore exclusive travel deals on TripWay.com</div>
+
+  </div>
+</body>
+</html>
