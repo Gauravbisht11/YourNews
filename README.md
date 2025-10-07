@@ -1,2 +1,2 @@
 # YourNews
-Write and publish your all news 
+Place to post your blog here  
